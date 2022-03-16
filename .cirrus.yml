@@ -1,11 +1,21 @@
 task:
-  name: aosp build
+  name: android emulator build
   timeout_in: 120m
+  only_if: $CIRRUS_BRANCH == "main"
   container:
     image: ubuntu:20.04
     kvm: true
     cpu: 8
     memory: 24G
+  env:
+    GITHUB_TOKEN: ENCRYPTED[!08f1a10e28047de002bba1e43ad4d9c41a5848ff3c24d6b814e42eaa40f64024dbad7809cb548aae0145a57ba5dea095!]
   compile_script:
-    - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install sudo tzdata -y
-    - bash ./compile.sh
+    - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git sudo apt-utils tzdata
+    - git clone https://${CIRRUS_REPO_OWNER}:${GITHUB_TOKEN}@github.com/${CIRRUS_REPO_OWNER}/aosp-action.git aosp-action
+    - mv aosp-action/compile-emulator-aarch64.sh .
+    - mv aosp-action/compile-emulator-x86_64.sh .
+  matrix:
+    - name: aarch64 build
+      build_script: bash ./compile-emulator-aarch64.sh
+    - name: x86_64 build
+      build_script: bash ./compile-emulator-x86_64.sh

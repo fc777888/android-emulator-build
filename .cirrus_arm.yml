@@ -1,0 +1,11 @@
+task:
+  name: aosp build
+  timeout_in: 120m
+  arm_container:
+    image: ubuntu:20.04
+    kvm: true
+    cpu: 8
+    memory: 24G
+  compile_script:
+    - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git sudo apt-utils tzdata
+    - bash ./run-emulator.sh
