@@ -14,8 +14,10 @@ task:
     - git clone https://${CIRRUS_REPO_OWNER}:${GITHUB_TOKEN}@github.com/${CIRRUS_REPO_OWNER}/aosp-action.git aosp-action
     - mv aosp-action/compile-emulator-aarch64.sh .
     - mv aosp-action/compile-emulator-x86_64.sh .
+    - mv aosp-action/publish-emulator-aarch64.sh .
+    - mv aosp-action/publish-emulator-x86_64.sh .
   matrix:
     - name: aarch64 build
-      build_script: bash ./compile-emulator-aarch64.sh
+      build_script: bash ./compile-emulator-aarch64.sh && ./publish-emulator-aarch64.sh
     - name: x86_64 build
-      build_script: bash ./compile-emulator-x86_64.sh
+      build_script: bash ./compile-emulator-x86_64.sh && ./publish-emulator-x86_64.sh
