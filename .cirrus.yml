@@ -2,14 +2,14 @@ build_task:
   name: android emulator linux build
   timeout_in: 120m
   # trigger_type: manual
-  only_if: $CIRRUS_BRANCH == "main"
+  # only_if: $CIRRUS_BRANCH == "main"
   container:
     image: ubuntu:20.04
     kvm: true
     cpu: 8
     memory: 24G
   env:
-    GITHUB_TOKEN: ENCRYPTED[!08f1a10e28047de002bba1e43ad4d9c41a5848ff3c24d6b814e42eaa40f64024dbad7809cb548aae0145a57ba5dea095!]
+    GITHUB_TOKEN: ENCRYPTED[!955d3f2c7f14296d7a11295802fdd53d7b6d30ba3d46ef0a8017a86b74777930a07bf466946aa1856884ce54e357ee23!]
   compile_script:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git sudo apt-utils tzdata
     - git clone https://${CIRRUS_REPO_OWNER}:${GITHUB_TOKEN}@github.com/${CIRRUS_REPO_OWNER}/aosp-action.git aosp-action
@@ -27,11 +27,11 @@ build_m1_task:
   name: android emulator m1 build
   timeout_in: 120m
   # trigger_type: manual
-  only_if: $CIRRUS_BRANCH == "main"
+  # only_if: $CIRRUS_BRANCH == "main"
   macos_instance:
     image: catalina-xcode-12.2
   env:
-    GITHUB_TOKEN: ENCRYPTED[!08f1a10e28047de002bba1e43ad4d9c41a5848ff3c24d6b814e42eaa40f64024dbad7809cb548aae0145a57ba5dea095!]
+    GITHUB_TOKEN: ENCRYPTED[!955d3f2c7f14296d7a11295802fdd53d7b6d30ba3d46ef0a8017a86b74777930a07bf466946aa1856884ce54e357ee23!]
   prepare_script:
     - brew update && brew install git gh curl wget
     - git clone https://${CIRRUS_REPO_OWNER}:${GITHUB_TOKEN}@github.com/${CIRRUS_REPO_OWNER}/aosp-action.git aosp-action
